@@ -1,0 +1,68 @@
+       XXXXXXXXX      XXXX    XXXXX
+	 XXXXXXXXXXXXXXXXXXXXXXX    XXXXXX
+	 XXXXXX                    XXXXXX
+	  XXXXX                 XXXXXXX
+	    XXXXXXXXXXXXXXXXXXXXXXXX
+		   XXXXXXXXXXXXXXXXXX
+		  
+       XXXXXXXXX      XXXX    XXXXX
+	 XXXXXXXXXXXXX  XXXXXXX    XXXXXX
+	 XXXXXX                    XXXXXX
+	  XXXXX                 XXXXXXX
+	    XXXXXXXXXXXXXXXXXXXXXXXX
+		   XXXXXXXXXXXXXXXXXX
+		  
+		  
+		  
+Y, XMin, XMax, Netlist
+
+netlist = 1;
+for (y=0; y<max; y++) {
+   foreach (segment in se§gments) {      
+      segment.netlist = netlist++;
+	  if (y==0) {
+		 continue;
+	  }
+	  touchingSegmments = GetTouchingSegmentsScanlineAbove(segment));
+	  isFirst = trueS
+	  foreach(touchingSegment in touchingSegments) {
+	    if (isFirst)
+		{
+	      netListToPropagate = touchingSegment.Netlist;
+		  segment.netList = netListToPropagate;
+		  isFirst = false;
+		} else {
+		  backPropagate(netListToPropagate, touchingSegment.Netlist);
+		}
+	  }
+   }
+}   
+  
+
+int netlist = 1;
+Scanline previousScanline = null;
+for (scanline in scanlines) {
+   scanline.Foreach((
+	(segment)=> 
+	{
+		segment.Netlist = netlist ++;
+		if ((previousScanline == null) || (previousScanline.Y < scanline.Y-1)) 
+		{
+		   return;
+		}
+		
+		var touchingSegments = previousScanline.GetTouchingSegments(segments, segment);
+		isFirst = true;
+    	foreach(touchingSegment in touchingSegments) {
+		  if (isFirst)
+	      {
+		    netListToPropagate = touchingSegment.Netlist;
+		    segment.netList = netListToPropagate;
+		    isFirst = false;
+		  } else {
+		  backPropagate(netListToPropagate, touchingSegment.Netlist);
+		}
+	  }		
+	}
+   });
+
