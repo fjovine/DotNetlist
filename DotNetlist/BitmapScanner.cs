@@ -12,21 +12,46 @@ namespace DotNetlist
     using System.Collections.Generic;
     using System.Diagnostics;
 
+    /// <summary>
+    /// This class implements the algorithm of scanning the passed bitmap.
+    /// It starts from the topmost <see cref="Scanline"/> and builds all the segments, connecting them to each net as soon as a relation of being touched
+    /// ¨with other segments is found
+    /// </summary>
     public class BitmapScanner
     {
+        /// <summary>
+        /// Local repository of the bitmap being scanned.
+        /// </summary>
         private readonly IBitmapAccessor bitmap;
 
+        /// <summary>
+        /// List of segments found.
+        /// </summary>
         private readonly List<Segment> segments = new List<Segment>();
 
+        /// <summary>
+        /// List of horizontal scan lines composing the bitmap.
+        /// </summary>
         private readonly List<Scanline> scanlines = new List<Scanline>();
 
+        /// <summary>
+        /// Maps a net identifier to the list of segments belonging to that net.
+        /// This means that all the segments in each list is electrically connected with all the others.
+        /// </summary>
         private readonly Dictionary<int, List<Segment>> netlists = new Dictionary<int, List<Segment>>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BitmapScanner"/> class, ready to scan the passed bitmap.
+        /// </summary>
+        /// <param name="bitmap">Bitmap to be scanned.</param>
         public BitmapScanner(IBitmapAccessor bitmap)
         {
             this.bitmap = bitmap;
         }
 
+        /// <summary>
+        /// Gets the list of scan lines.
+        /// </summary>
         public List<Scanline> ScanlineIndex
         {
             get
@@ -35,6 +60,9 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// Gets the list of segments contained in this bitmap.
+        /// </summary>
         public List<Segment> Segments
         {
             get
@@ -43,11 +71,19 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// Gets the list of segments belonging to the passed bitmap.
+        /// </summary>
+        /// <param name="netId">Identifier of the required net.</param>
+        /// <returns>The list of segments belonging to the passed net.</returns>
         public List<Segment> GetSegmentsOfNet(int netId)
         {
             return this.netlists[netId];
         }
 
+        /// <summary>
+        /// Scans the bitmap, i.e. builds the list of scanned segments.
+        /// </summary>
         public void Scan()
         {
             Segment currentSegment = new Segment();
@@ -99,6 +135,9 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// Checks which segments are connected together and sets an identical net identifier to all of them.
+        /// </summary>
         public void ComputeNetlists()
         {
             int netlist = 1;
@@ -134,6 +173,10 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// After having checked which segments are electrically connected, the net identifiers are non sequential integers.
+        /// This method compacts them so that all the net identifiers are sequential integers starting from 1.
+        /// </summary>
         public void CompactNets()
         {
             SortedDictionary<int, int> nets = new SortedDictionary<int, int>();
@@ -152,6 +195,10 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// After the net identifiers have been computed, fills the dictionary <see cref="netlists"/> that map every net identifier to the 
+        /// list of segments composing the net
+        /// </summary>
         public void MapNetlists()
         {
             foreach (var segment in this.segments)
@@ -166,6 +213,10 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// Gets the list of available net identifiers.
+        /// </summary>
+        /// <returns>The list of available net identifiers.</returns>
         public IEnumerable<int> GetNetIds()
         {
             foreach (var netId in this.netlists.Keys)

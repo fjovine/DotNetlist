@@ -8,14 +8,24 @@
 //-----------------------------------------------------------------------
 namespace DotNetlist
 {
-    using System;
     using System.Drawing;
-    using System.Text;
-
+    
+    /// <summary>
+    /// Real implementation of the <see cref="AbstractBitmapGenerator"/> for a real bitmap
+    /// backed up by a PNG image file.
+    /// </summary>
     public class RealBitmapGenerator : AbstractBitmapGenerator
     {
+        /// <summary>
+        /// Local store of the bitmap.
+        /// </summary>
         private readonly Bitmap bitmap;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RealBitmapGenerator"/> class.
+        /// </summary>
+        /// <param name="width">Width of the bitmap in pixels.</param>
+        /// <param name="height">Height of the bitmap in pixels.</param>
         public RealBitmapGenerator(int width, int height)
           : base(width, height)
         {
@@ -26,6 +36,11 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RealBitmapGenerator"/> class.
+        /// The bitmap is a clone of an existing one.
+        /// </summary>
+        /// <param name="backgroundBitmap">The initial bitmap from which new pixels will be set or reset.</param>
         public RealBitmapGenerator(Bitmap backgroundBitmap)
           : base(backgroundBitmap.Width, backgroundBitmap.Height)
         {
@@ -33,11 +48,21 @@ namespace DotNetlist
             this.bitmap = backgroundBitmap.Clone(cloneRect, backgroundBitmap.PixelFormat);
         }
 
+        /// <summary>
+        /// Sets a pixel at the specified coordinates with the passed intensity.
+        /// </summary>
+        /// <param name="x">Abscissa of the pixel to set.</param>
+        /// <param name="y">Ordinate of the pixel to set.</param>
+        /// <param name="intensity">Intensity of the pixel. If > 10 the pixel will be white</param>
         public override void SetPixel(int x, int y, int intensity)
         {
             this.bitmap.SetPixel(x, y, intensity > 10 ? Color.White : Color.DarkGray);
         }
 
+        /// <summary>
+        /// Saves the generated bitmap to a PNG file.
+        /// </summary>
+        /// <param name="filename">Name of the file where the bitmap will be saved.</param>
         public override void SaveTo(string filename)
         {
             this.bitmap.Save(filename, System.Drawing.Imaging.ImageFormat.Png);

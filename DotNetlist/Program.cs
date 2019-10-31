@@ -13,11 +13,23 @@ namespace DotNetlist
     using System.IO;
     using System.Text;
 
+    /// <summary>
+    /// Entry point of the command line application.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point of the <code>DotNetlist</code> application.
+        /// It is a console application accepting the name of the PNG bitmap to be
+        /// processed as parameter.
+        /// It generates a folder containing all the found networks found and an HTML file
+        /// that graphically shows them.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
-            if (!File.Exists(args[0])) {
+            if (!File.Exists(args[0]))
+            {
                 Console.WriteLine($"File {args[0]} not found");
                 return;
             }
@@ -44,9 +56,15 @@ namespace DotNetlist
                 outBitmap.SaveTo(Path.Combine(path, $"Net_{netId}.png"));
             }
 
-            File.WriteAllLines(path+".html", GenerateHtml(scanner, path), Encoding.UTF8);
+            File.WriteAllLines(path + ".html", GenerateHtml(scanner, path), Encoding.UTF8);
         }
 
+        /// <summary>
+        /// Generates the HTML file that permits showing each found net.
+        /// </summary>
+        /// <param name="scanner">The bitmap scanner to be used.</param>
+        /// <param name="path">The pathname of the PNG file to be scanned.</param>
+        /// <returns>The list of HTML lines.</returns>
         private static List<string> GenerateHtml(BitmapScanner scanner, string path)
         {
             List<string> html = new List<string>();
@@ -56,64 +74,45 @@ namespace DotNetlist
                 "<html xmlns=\"http://www.w3.org/1999/xhtml\">",
                 "<head>",
                 "<title>DotNetlist</title>",
-                "<style type=\"text/css\">",
-                "img{width:1648px;height:881px;border:0;}",
-                ".show{display:block;}",
-                ".hide{display:none;}",
-                "</style>",
-                "<script type=\"text/javascript\">",
-                "var openImage;",
-                "function showImg(image)",
-                "{",
-                "    if (!(openImage === undefined)) {",
-                "      var oldImage = document.getElementById(openImage);",
-                "      oldImage.className = 'hide';",
-                "    }",
-                "    var obj=document.getElementById(image);",
-                "    obj.className = 'show';",
-                "    openImage = image;",
-                "}",
-                "</script>",
                 "</head>",
                 "<html>",
                 "<body>",
             });
 
-            html.Add("<table>");
-            html.Add("<tr><td>");
-            GenerateNetLinks(scanner, html);
-            html.Add("</td>");
-            html.Add("<td>");
-            GenerateImagesPlaceholders(scanner, html, path);
-            html.Add("</td>");
-            html.Add("</tr>");
-            html.Add("</table>");
+            html.Add("<select id=\"dlist\" onChange=\"swapImage()\">");
+            GenerateNetLinks(scanner, path, html);
+            html.Add("</select>");
+            html.Add("<br/><br/>");
+            html.Add($"<img id=\"imageToSwap\" src=\"{path}/Net_1.png\" />");
+
+            html.Add("<script type=\"text/javascript\">");
+            html.Add("function swapImage(){");
+            html.Add("    var image = document.getElementById(\"imageToSwap\");");
+            html.Add("    var dropd = document.getElementById(\"dlist\");");
+            html.Add("    image.src = dropd.value;	");
+            html.Add("};");
+            html.Add("</script>");            
             html.Add("</body>");
             html.Add("</html>");
             return html;
         }
 
-        private static void GenerateNetLinks(BitmapScanner scanner, List<string> html)
+        /// <summary>
+        /// Generates the links to the external bitmaps in the HTML file.
+        /// </summary>
+        /// <param name="scanner">The bitmap scanner to be used.</param>
+        /// <param name="path">The pathname of the PNG file to be scanned.</param>
+        /// <param name="html">List of html lines where the links will be saved.</param>
+        private static void GenerateNetLinks(BitmapScanner scanner, string path, List<string> html)
         {
-            html.Add("<table>");
             int line = 1;
             foreach (int netId in scanner.GetNetIds())
             {
-                html.Add($"<tr><td><a onclick=\"showImg('image{line}')\" href=\"#\">Net_{line}</a></td></tr>");
-                line ++;
+                html.Add($"<option value=\"{path}/Net_{line}.png\">Net_{line}</option>");
+                line++;
             }
 
             html.Add("</table>");
-        }
-
-        private static void GenerateImagesPlaceholders(BitmapScanner scanner, List<string> html, string path)
-        {
-            int line = 1;
-            foreach (int netId in scanner.GetNetIds())
-            {
-                html.Add($"<img id=\"image{line}\" src=\"{path}/Net_{line}.png\" class=\"hide\">");
-                line++;
-            }
         }
     }
 }
