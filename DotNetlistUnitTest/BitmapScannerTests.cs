@@ -133,6 +133,39 @@ namespace DotNetlistUnitTest
             Assert.IsTrue(!IsSingleNetlist(dut));
         }
 
+        [TestMethod]
+        public void TryGetNetAt_WorksWell_WithProperInnput()
+        {
+            IBitmapAccessor accessor = new MockupBitmapAccessor (
+                new string[] {
+                //   012345678
+                    "  XXXXXXX",
+                    " XX     X",
+                    " XX XXX X",
+                    "",
+                    " XX XXX X",
+                    "  XX    X",
+                    "   XXXX",
+                    "",
+                });
+            BitmapScanner dut = new BitmapScanner(accessor);
+            dut.Scan();
+            dut.ComputeNetlists();
+            dut.CompactNets();
+            dut.MapNetlists();
+
+            Assert.IsTrue(dut.TryGetNetAt(1,2, out int netId));
+            Assert.AreEqual(1, netId);
+
+            Assert.IsTrue(dut.TryGetNetAt(5,2, out netId));
+            Assert.AreEqual(2, netId);
+
+            Assert.IsTrue(dut.TryGetNetAt(5,4, out netId));
+            Assert.AreEqual(4, netId);
+
+            Assert.IsFalse(dut.TryGetNetAt(3,4, out netId));
+        }
+
         private bool IsSingleNetlist(BitmapScanner dut) 
         {
             var result = true;

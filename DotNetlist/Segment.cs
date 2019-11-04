@@ -81,6 +81,16 @@ namespace DotNetlist
         }
 
         /// <summary>
+        /// Returns true if the segment contains the passed abscissa.
+        /// </summary>
+        /// <param name="x">Abscissa to be checked.</param>
+        /// <returns>True if the abscissa is contained in the segment.</returns>
+        public bool ContainsAbscissa(float x)
+        {
+            return (this.XMin <= x) && (this.XMax >= x);
+        }
+
+        /// <summary>
         /// Computes a textual representation of the segment.
         /// </summary>
         /// <returns>A string containing the relevant properties of the segment.</returns>

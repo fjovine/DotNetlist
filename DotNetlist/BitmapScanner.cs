@@ -15,7 +15,7 @@ namespace DotNetlist
     /// <summary>
     /// This class implements the algorithm of scanning the passed bitmap.
     /// It starts from the topmost <see cref="Scanline"/> and builds all the segments, connecting them to each net as soon as a relation of being touched
-    /// ¨with other segments is found
+    /// by other segments is found
     /// </summary>
     public class BitmapScanner
     {
@@ -79,6 +79,14 @@ namespace DotNetlist
         public List<Segment> GetSegmentsOfNet(int netId)
         {
             return this.netlists[netId];
+        }
+
+        public void PrepareAll()
+        {
+            this.Scan();
+            this.ComputeNetlists();
+            this.CompactNets();
+            this.MapNetlists();
         }
 
         /// <summary>
@@ -174,6 +182,15 @@ namespace DotNetlist
         }
 
         /// <summary>
+        /// Computes the number of nets found.
+        /// </summary>
+        /// <returns>Returns the number of nets found</returns>
+        public int GetNetCount()
+        {
+            return this.netlists.Keys.Count;
+        }
+
+        /// <summary>
         /// After having checked which segments are electrically connected, the net identifiers are non sequential integers.
         /// This method compacts them so that all the net identifiers are sequential integers starting from 1.
         /// </summary>
@@ -196,7 +213,7 @@ namespace DotNetlist
         }
 
         /// <summary>
-        /// After the net identifiers have been computed, fills the dictionary <see cref="netlists"/> that map every net identifier to the 
+        /// After the net identifiers have been computed, fills the dictionary <see cref="netlists"/> that map every net identifier to the
         /// list of segments composing the net
         /// </summary>
         public void MapNetlists()
@@ -211,6 +228,43 @@ namespace DotNetlist
 
                 this.netlists[netId].Add(segment);
             }
+        }
+
+        /// <summary>
+        /// Returns true if the passed point is inside a net.
+        /// If this is the case, then the net id is passed
+        /// to the out parameter.
+        /// </summary>
+        /// <param name="x">Abscissa of the point to check.</param>
+        /// <param name="y">Ordinate of the point to check.</param>
+        /// <param name="netId">Net Id of the net touched by the point, if any.</param>
+        public bool TryGetNetAt(float x, float y, out int netId)
+        {
+            var reference = new Scanline()
+            {
+                Y = (int)y,
+            };
+            var index = this.scanlines.BinarySearch(reference, new ScanlineComparer());
+            netId = 1;
+            if (index < 0)
+            {
+                // No scanline at the passed orindate
+                return false;
+            }
+
+            // A scanline exists at the passed ordinate
+            Scanline found = this.scanlines[index];
+            for (int i = 0; i < found.Length; i++)
+            {
+                Segment segment = this.segments[found.InitialIndex + i];
+                if (segment.ContainsAbscissa(x))
+                {
+                    netId = segment.NetList;
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

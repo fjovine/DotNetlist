@@ -13,9 +13,9 @@ namespace DotNetlist
 
     /// <summary>
     /// Describes the segments composing a scan line.
-    /// While scanning a scan line, a number of segments are generated that are sequentially stored in 
+    /// While scanning a scan line, a number of segments are generated that are sequentially stored in
     /// a segment list.
-    /// So the scan line holds the index of the first 
+    /// So the scan line holds the index of the first
     /// </summary>
     public class Scanline
     {
@@ -93,7 +93,7 @@ namespace DotNetlist
         /// <summary>
         /// Propagates back the new net id.
         /// This method is called whenever a new segment makes a short circuit between segments that have already a net identifier.
-        /// It iterates back in the segment list and changes the old net into the new one. At the end of the process all the 
+        /// It iterates back in the segment list and changes the old net into the new one. At the end of the process all the
         /// connected segment have the new net identifier.
         /// </summary>
         /// <param name="segments">List of the scanned segments.</param>

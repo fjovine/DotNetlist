@@ -9,7 +9,7 @@
 namespace DotNetlist
 {
     using System.Drawing;
-    
+
     /// <summary>
     /// Real implementation of the <see cref="AbstractBitmapGenerator"/> for a real bitmap
     /// backed up by a PNG image file.

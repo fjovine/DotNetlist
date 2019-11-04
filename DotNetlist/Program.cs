@@ -20,35 +20,48 @@ namespace DotNetlist
     {
         /// <summary>
         /// Entry point of the <code>DotNetlist</code> application.
-        /// It is a console application accepting the name of the PNG bitmap to be
-        /// processed as parameter.
+        /// It is a console application accepting the nameS of the PNG bitmap to be
+        /// processed as parameters.
+        /// The first PNG is the top layer, the second one is the drill layer while the third is the bottom layer.
         /// It generates a folder containing all the found networks found and an HTML file
         /// that graphically shows them.
         /// </summary>
         /// <param name="args">Command line arguments.</param>
         public static void Main(string[] args)
         {
-            if (!File.Exists(args[0]))
+            if (args.Length == 1)
             {
-                Console.WriteLine($"File {args[0]} not found");
+                ProcessSingleLayer(args[0]);
+            }
+            else if (args.Length == 3)
+            {
+                ProcessDoubleLayerWithDrill(args[0], args[1], args[2]);
+            }
+            else
+            {
+                Console.WriteLine("Syntax DotNetlist <topLayer> [<drillLayer> <bottomLayer>] ");
+            }
+        }
+
+        public static void ProcessSingleLayer(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine($"File {filename} not found");
                 return;
             }
 
-            MonochromeBitmapAccessor ma = new MonochromeBitmapAccessor(args[0]);
+            MonochromeBitmapAccessor topLayer = new MonochromeBitmapAccessor(filename);
 
-            var scanner = new BitmapScanner(ma);
-            scanner.Scan();
-            scanner.ComputeNetlists();
-            scanner.CompactNets();
-            scanner.MapNetlists();
+            var scannerToplayer = LoadAndScan(filename);
 
-            var path = Path.GetFileNameWithoutExtension(args[0]);
+            var path = Path.GetFileNameWithoutExtension(filename);
             Directory.CreateDirectory(path);
 
-            foreach (int netId in scanner.GetNetIds())
+            foreach (int netId in scannerToplayer.GetNetIds())
             {
-                AbstractBitmapGenerator outBitmap = new RealBitmapGenerator(ma.Bitmap);
-                foreach (var segment in scanner.GetSegmentsOfNet(netId))
+                AbstractBitmapGenerator outBitmap = new RealBitmapGenerator(topLayer.Bitmap);
+                foreach (var segment in scannerToplayer.GetSegmentsOfNet(netId))
                 {
                     outBitmap.DrawSegment(segment, 100);
                 }
@@ -56,7 +69,45 @@ namespace DotNetlist
                 outBitmap.SaveTo(Path.Combine(path, $"Net_{netId}.png"));
             }
 
-            File.WriteAllLines(path + ".html", GenerateHtml(scanner, path), Encoding.UTF8);
+            File.WriteAllLines(path + ".html", GenerateHtml(scannerToplayer, path), Encoding.UTF8);
+        }
+
+        public static void ProcessDoubleLayerWithDrill(string topLayerFilename, string drillLayerFilename, string bottomLayerFilename)
+        {
+            if (!File.Exists(topLayerFilename))
+            {
+                Console.WriteLine($"The top layer file {topLayerFilename} was not found");
+                return;
+            }
+
+            if (!File.Exists(drillLayerFilename))
+            {
+                Console.WriteLine($"The drill layer file {topLayerFilename} was not found");
+                return;
+            }
+
+            if (!File.Exists(bottomLayerFilename))
+            {
+                Console.WriteLine($"The bottom layer file {topLayerFilename} was not found");
+                return;
+            }
+
+            var top = LoadAndScan(topLayerFilename);
+            var drill = LoadAndScan(drillLayerFilename);
+            var bottom = LoadAndScan(bottomLayerFilename);
+        }
+
+        private static BitmapScanner LoadAndScan(string filename)
+        {
+            MonochromeBitmapAccessor layer = new MonochromeBitmapAccessor(filename);
+            Console.WriteLine($"Loading {filename}");
+
+            var result = new BitmapScanner(layer);
+            result.Scan();
+            result.ComputeNetlists();
+            result.CompactNets();
+            result.MapNetlists();
+            return result;
         }
 
         /// <summary>
@@ -91,7 +142,7 @@ namespace DotNetlist
             html.Add("    var dropd = document.getElementById(\"dlist\");");
             html.Add("    image.src = dropd.value;	");
             html.Add("};");
-            html.Add("</script>");            
+            html.Add("</script>");
             html.Add("</body>");
             html.Add("</html>");
             return html;
