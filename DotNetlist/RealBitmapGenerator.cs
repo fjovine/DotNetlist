@@ -49,6 +49,15 @@ namespace DotNetlist
         }
 
         /// <summary>
+        /// Gets the current bitmap.
+        /// </summary>
+        /// <returns>The current bitmap.</returns>
+        public Bitmap GetBitmap()
+        {
+            return this.bitmap;
+        }
+
+        /// <summary>
         /// Sets a pixel at the specified coordinates with the passed intensity.
         /// </summary>
         /// <param name="x">Abscissa of the pixel to set.</param>

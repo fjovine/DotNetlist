@@ -20,17 +20,22 @@ namespace DotNetlist
         /// <summary>
         /// Scanner of the top layer.
         /// </summary>
-        private BitmapScanner top;
+        private readonly BitmapScanner top;
 
         /// <summary>
         /// Scanner of the bottom layer.
         /// </summary>
-        private BitmapScanner bottom;
+        private readonly BitmapScanner bottom;
 
         /// <summary>
         /// Scanner of the drill layer.
         /// </summary>
-        private DrillScanner drill;
+        private readonly DrillScanner drill;
+
+        /// <summary>
+        /// Maps the identifier of nets on each layer to the global net identifier.
+        /// </summary>
+        private readonly Dictionary<LayerNet, int> layerNet2net = new Dictionary<LayerNet, int>();
 
         /// <summary>
         /// Maps the global net to the local nets of each layer.
@@ -38,14 +43,14 @@ namespace DotNetlist
         /// <returns></returns>
         private Dictionary<int, List<LayerNet>> net2connectedLayerNets = new Dictionary<int, List<LayerNet>>();
 
-        private Dictionary<LayerNet, int> layerNet2net = new Dictionary<LayerNet, int>();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DrillConnector"/> class.
+        /// This class builds the connection between nets on the top and bottom layers of the PCB by means
+        /// of the drills layer.
         /// </summary>
-        /// <param name="top"></param>
-        /// <param name="bottom"></param>
-        /// <param name="drill"></param>
+        /// <param name="top">BitmapScanner of the top layer.</param>
+        /// <param name="bottom">BitmapScanner of the bottom layer layer.</param>
+        /// <param name="drill">DrillScanner of the drill layer.</param>
         public DrillConnector(BitmapScanner top, BitmapScanner bottom, DrillScanner drill)
         {
             this.top = top;
@@ -53,15 +58,31 @@ namespace DotNetlist
             this.drill = drill;
         }
 
+        /// <summary>
+        /// Computes the enumeration of defined local nets.
+        /// </summary>
+        /// <returns>The enumeration of defined local nets</returns>
         public IEnumerable<int> GetNets()
         {
             return this.net2connectedLayerNets.Keys;
         }
 
+        /// <summary>
+        /// Computes the list of local nets (i.e. nets on top and bottom layers) corresponding to the passed
+        /// global net.
+        /// </summary>
+        /// <param name="net">Global net identifier.</param>
+        /// <returns>The enumeration of <see cref="LayerNet"/> that reference each net on both layers that are connected.</returns>
         public IEnumerable<LayerNet> GetLayerNetsOfNet(int net)
         {
             return this.net2connectedLayerNets[net];
         }
+
+        /// <summary>
+        /// This method computes the global nets of the PCB considering that nets of the top and bottom layers are
+        /// indeed connected, i.e. just one, when they touch a hole.
+        /// The correspondence between the nets on top and bottom layers is stored in the <see cref="layerNet2net"/> and <see cref="net2connectedLayerNets"/> dictionaries.
+        /// </summary>
         public void ComputeGlobalNet()
         {
             int globalNet = 1;
@@ -79,7 +100,6 @@ namespace DotNetlist
                     bottomNet = new LayerNet(LayerNet.BOTTOMLAYER, bottom);
                 }
 
-                Console.WriteLine($"TopNet {topNet} BottomNet {bottomNet}");
                 bool topNetAlreadyConnected = (topNet != null) && this.layerNet2net.ContainsKey(topNet);
                 bool bottomNetAlreadyConnected = (bottomNet != null) && this.layerNet2net.ContainsKey(bottomNet);
 
@@ -99,7 +119,6 @@ namespace DotNetlist
                         this.layerNet2net.Add(bottomNet, globalNet);
                     }
 
-                    Console.WriteLine($"Connessione 1 net {globalNet}");
                     globalNet++;
                     continue;
                 }
@@ -109,7 +128,6 @@ namespace DotNetlist
                     int unify = this.layerNet2net[topNet];
                     this.layerNet2net.Add(bottomNet, unify);
                     this.net2connectedLayerNets[unify].Add(bottomNet);
-                    Console.WriteLine($"Connessione 2 - unify {unify}");
                     continue;
                 }
 
@@ -118,7 +136,6 @@ namespace DotNetlist
                     int unify = this.layerNet2net[bottomNet];
                     this.layerNet2net.Add(topNet, unify);
                     this.net2connectedLayerNets[unify].Add(topNet);
-                    Console.WriteLine($"Connessione 3 - unify {unify}");
                     continue;
                 }
 
@@ -127,16 +144,62 @@ namespace DotNetlist
                     // If both are connected, we reduce to the top layer.
                     int unify = this.layerNet2net[topNet];
                     int localBottomNet = this.layerNet2net[bottomNet];
-                    if (unify == localBottomNet) 
+                    if (unify == localBottomNet)
                     {
                         continue;
                     }
+
                     var bottomList = this.net2connectedLayerNets[localBottomNet];
                     this.net2connectedLayerNets[unify].AddRange(bottomList);
                     this.net2connectedLayerNets.Remove(localBottomNet);
-                    this.layerNet2net[bottomNet] = unify;
-                    Console.WriteLine($"Connessione 4 {localBottomNet}->{unify}");
+                    foreach (var localnet in bottomList)
+                    {
+                        this.layerNet2net[localnet] = unify;
+                    }
                 }
+            }
+
+            // Adds the top layers that have no viases nor through pins
+            AddNetsOnlyOnOneLayer(this.top, LayerNet.TOPLAYER);
+            AddNetsOnlyOnOneLayer(this.bottom, LayerNet.BOTTOMLAYER);
+            CompactNets();
+
+            void AddNetsOnlyOnOneLayer(BitmapScanner layer, int layerId)
+            {
+                foreach (var netId in layer.GetNetIds())
+                {
+                    var net = new LayerNet(layerId, netId);
+                    var net2GlobalNet = new Dictionary<int, int>();
+                    if (!this.layerNet2net.ContainsKey(net))
+                    {
+                        if (!net2GlobalNet.ContainsKey(netId))
+                        {
+                            net2GlobalNet.Add(netId, globalNet++);
+                        }
+
+                        var thisNet = net2GlobalNet[netId];
+
+                        if (!this.net2connectedLayerNets.ContainsKey(thisNet))
+                        {
+                            this.net2connectedLayerNets.Add(thisNet, new List<LayerNet>());
+                        }
+
+                        this.net2connectedLayerNets[thisNet].Add(net);
+                    }
+                }
+            }
+
+            void CompactNets()
+            {
+                Dictionary<int, List<LayerNet>> compacted = new Dictionary<int, List<LayerNet>>();
+                int i = 1;
+                foreach (var key in this.net2connectedLayerNets.Keys)
+                {
+                    var list = this.net2connectedLayerNets[key];
+                    compacted.Add(i++, list);
+                }
+
+                this.net2connectedLayerNets = compacted;
             }
         }
     }

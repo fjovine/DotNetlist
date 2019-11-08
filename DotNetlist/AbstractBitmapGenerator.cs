@@ -30,7 +30,7 @@ namespace DotNetlist
         /// <summary>
         /// Gets the height in pixel of the bitmap.
         /// </summary>
-        protected int Height
+        public int Height
         {
             get;
             private set;
@@ -39,7 +39,7 @@ namespace DotNetlist
         /// <summary>
         /// Gets the width in pixel of the bitmap.
         /// </summary>
-        protected int Width
+        public int Width
         {
             get;
             private set;

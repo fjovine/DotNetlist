@@ -81,6 +81,10 @@ namespace DotNetlist
             return this.netlists[netId];
         }
 
+        /// <summary>
+        /// Prepares the net list, i.e. computes them, compacts the, i.e. reduces the net identifiers to consecutive
+        /// numbers
+        /// </summary>
         public void PrepareAll()
         {
             this.Scan();
@@ -238,6 +242,7 @@ namespace DotNetlist
         /// <param name="x">Abscissa of the point to check.</param>
         /// <param name="y">Ordinate of the point to check.</param>
         /// <param name="netId">Net Id of the net touched by the point, if any.</param>
+        /// <returns>True if the passed point lies inside a net, i.e. copper.</returns>
         public bool TryGetNetAt(float x, float y, out int netId)
         {
             var reference = new Scanline()
@@ -254,7 +259,7 @@ namespace DotNetlist
 
             // A scanline exists at the passed ordinate
             Scanline found = this.scanlines[index];
-            for (int i = 0; i < found.Length; i++)
+            for (int i = 0; i <= found.Length; i++)
             {
                 Segment segment = this.segments[found.InitialIndex + i];
                 if (segment.ContainsAbscissa(x))

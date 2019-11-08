@@ -1,5 +1,34 @@
 <stylecopresultscache>
   <version>12</version>
+  <sourcecode name="NetMapper.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2019.04.24 15:09:30.632</styleCop>
+      <settingsFile>2019.04.24 15:09:30.608</settingsFile>
+      <sourceFile>2019.11.07 05:40:47.909</sourceFile>
+      <parser>2019.04.24 15:09:30.632</parser>
+      <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2019.04.24 15:09:30.632</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2019.04.24 15:09:30.632</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2019.04.24 15:09:30.632</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The constructor must have a documentation header.</context>
+        <line>19</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
   <project key="-849285028">
     <configuration>
     </configuration>
@@ -8,7 +37,7 @@
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.10.11 12:58:12.000</sourceFile>
+      <sourceFile>2019.11.05 16:50:56.923</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -31,7 +60,7 @@
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.11.03 10:03:14.470</sourceFile>
+      <sourceFile>2019.11.08 05:25:59.101</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -48,13 +77,7 @@
       <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementReturnValueMustBeDocumented" ruleCheckId="SA1615">
-        <context>The documentation header must contain a returns tag since the element has a return value.</context>
-        <line>233</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <violations />
   </sourcecode>
   <sourcecode name="CharacterBitmapGenerator.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
@@ -117,7 +140,7 @@
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.11.03 10:00:42.453</sourceFile>
+      <sourceFile>2019.11.08 05:28:24.816</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -135,29 +158,26 @@
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
     <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="DocumentationMustContainValidXml" ruleCheckId="SA1603">
-        <context>The documentation header is composed of invalid Xml: The 'summmary' start tag on line 1 position 8 does not match the end tag of 'summary'. Line 4, position 3.</context>
-        <line>15</line>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
+        <context>The call to top must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
+        <line>95</line>
+        <index>4000</index>
+        <endIndex>4002</endIndex>
+        <startLine>95</startLine>
+        <startColumn>62</startColumn>
+        <endLine>95</endLine>
+        <endColumn>64</endColumn>
         <warning>False</warning>
       </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementParameterDocumentationMustHaveText" ruleCheckId="SA1614">
-        <context>The documentation text within the param tag for the '&lt;param name="top" /&gt;' parameter must not be empty.</context>
-        <line>38</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementParameterDocumentationMustHaveText" ruleCheckId="SA1614">
-        <context>The documentation text within the param tag for the '&lt;param name="bottom" /&gt;' parameter must not be empty.</context>
-        <line>38</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementParameterDocumentationMustHaveText" ruleCheckId="SA1614">
-        <context>The documentation text within the param tag for the '&lt;param name="drill" /&gt;' parameter must not be empty.</context>
-        <line>38</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The class must have a documentation header.</context>
-        <line>45</line>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixLocalCallsWithThis" ruleCheckId="SA1101">
+        <context>The call to bottom must begin with the 'this.' prefix to indicate that the item is a member of the class.</context>
+        <line>100</line>
+        <index>4192</index>
+        <endIndex>4197</endIndex>
+        <startLine>100</startLine>
+        <startColumn>68</startColumn>
+        <endLine>100</endLine>
+        <endColumn>73</endColumn>
         <warning>False</warning>
       </violation>
     </violations>
@@ -166,7 +186,7 @@
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.11.03 10:04:41.171</sourceFile>
+      <sourceFile>2019.11.08 05:26:50.447</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -183,49 +203,36 @@
       <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The field must have a documentation header.</context>
-        <line>23</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The field must have a documentation header.</context>
-        <line>25</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The constructor must have a documentation header.</context>
-        <line>27</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>32</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.LayoutRules" rule="CurlyBracketsForMultiLineStatementsMustNotShareLine" ruleCheckId="SA1500">
-        <context>If a statement spans multiple lines, the opening curly bracket must be placed on its own line.</context>
-        <line>34</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>41</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>53</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <violations />
   </sourcecode>
   <sourcecode name="IBitmapAccessor.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
       <sourceFile>2019.10.27 23:47:28.562</sourceFile>
+      <parser>2019.04.24 15:09:30.632</parser>
+      <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2019.04.24 15:09:30.632</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2019.04.24 15:09:30.632</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2019.04.24 15:09:30.632</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations />
+  </sourcecode>
+  <sourcecode name="LayerNet.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2019.04.24 15:09:30.632</styleCop>
+      <settingsFile>2019.04.24 15:09:30.608</settingsFile>
+      <sourceFile>2019.11.08 05:28:24.834</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -267,45 +274,11 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <sourcecode name="NetMapper.cs" parser="StyleCop.CSharp.CsParser">
-    <timestamps>
-      <styleCop>2019.04.24 15:09:30.632</styleCop>
-      <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.11.03 09:57:57.020</sourceFile>
-      <parser>2019.04.24 15:09:30.632</parser>
-      <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
-      <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
-      <StyleCop.CSharp.LayoutRules>2019.04.24 15:09:30.632</StyleCop.CSharp.LayoutRules>
-      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
-      <StyleCop.CSharp.MaintainabilityRules>2019.04.24 15:09:30.632</StyleCop.CSharp.MaintainabilityRules>
-      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
-      <StyleCop.CSharp.NamingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.NamingRules>
-      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
-      <StyleCop.CSharp.OrderingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.OrderingRules>
-      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
-      <StyleCop.CSharp.ReadabilityRules>2019.04.24 15:09:30.632</StyleCop.CSharp.ReadabilityRules>
-      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
-      <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
-      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
-    </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="DocumentationMustContainValidXml" ruleCheckId="SA1603">
-        <context>The documentation header is composed of invalid Xml: The 'summmary' start tag on line 1 position 8 does not match the end tag of 'summary'. Line 6, position 3.</context>
-        <line>17</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The constructor must have a documentation header.</context>
-        <line>19</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
-  </sourcecode>
   <sourcecode name="Program.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.10.31 17:31:09.071</sourceFile>
+      <sourceFile>2019.11.07 16:26:33.086</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -322,29 +295,13 @@
       <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>46</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>75</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>100</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <violations />
   </sourcecode>
   <sourcecode name="RealBitmapGenerator.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.10.31 17:30:26.988</sourceFile>
+      <sourceFile>2019.11.07 05:38:30.036</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -390,7 +347,7 @@
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.11.03 09:57:57.029</sourceFile>
+      <sourceFile>2019.11.07 16:14:54.257</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -407,24 +364,13 @@
       <StyleCop.CSharp.SpacingRules>2019.04.24 15:09:30.632</StyleCop.CSharp.SpacingRules>
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
-    <violations>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The class must have a documentation header.</context>
-        <line>15</line>
-        <warning>False</warning>
-      </violation>
-      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
-        <context>The method must have a documentation header.</context>
-        <line>17</line>
-        <warning>False</warning>
-      </violation>
-    </violations>
+    <violations />
   </sourcecode>
   <sourcecode name="Segment.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2019.04.24 15:09:30.632</styleCop>
       <settingsFile>2019.04.24 15:09:30.608</settingsFile>
-      <sourceFile>2019.11.03 10:03:21.832</sourceFile>
+      <sourceFile>2019.11.03 22:55:48.427</sourceFile>
       <parser>2019.04.24 15:09:30.632</parser>
       <StyleCop.CSharp.DocumentationRules>2019.04.24 15:09:30.632</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>685522799</StyleCop.CSharp.DocumentationRules.FilesHashCode>

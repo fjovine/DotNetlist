@@ -20,18 +20,34 @@ namespace DotNetlist
     /// </summary>
     public class DrillScanner
     {
-        private BitmapScanner drillBitmap;
+        /// <summary>
+        /// Local scanner of the drill layer.
+        /// </summary>
+        private readonly BitmapScanner drillBitmap;
 
+        /// <summary>
+        /// Private list of the hole coordinates.
+        /// </summary>
         private List<PointF> holes = null;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DrillScanner"/> class.
+        /// </summary>
+        /// <param name="drillBitmap">BitmapScanner that has already processed the drill bitmap.</param>
         public DrillScanner(BitmapScanner drillBitmap)
         {
             this.drillBitmap = drillBitmap;
         }
 
+        /// <summary>
+        /// Computes all the holes returning their coordinates.
+        /// A hole is indeed a set of scan lines connected, i.e. a net. There is one test done: the minimum rectangle that
+        /// includes the net must be square with sides measuring more than 2 pixels..
+        /// </summary>
+        /// <returns>The list of points where the holes are.</returns>
         public List<PointF> GetHoles()
         {
-            if (this.holes == null) 
+            if (this.holes == null)
             {
                 this.FindHoles();
             }
@@ -39,6 +55,9 @@ namespace DotNetlist
             return this.holes;
         }
 
+        /// <summary>
+        /// Finds all the holes on the layer.
+        /// </summary>
         private void FindHoles()
         {
             this.holes = new List<PointF>();
@@ -51,6 +70,13 @@ namespace DotNetlist
             }
         }
 
+        /// <summary>
+        /// Checks whether the passed net can represent a hole.
+        /// It may be possible that the drill layer contains also other signs, like the outline, that are not real holes.
+        /// </summary>
+        /// <param name="net">Net it found on the drill layer.</param>
+        /// <param name="hole">Point where the hole lies.</param>
+        /// <returns>True if the net represents a hole.</returns>
         private bool TryGetHole(int net, out PointF hole)
         {
             hole = new PointF(0, 0);
