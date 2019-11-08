@@ -20,7 +20,7 @@ Given a set of points, the mathematical relation of "Point A is electrically con
 * if A is connected to B and B is connected to C, then A is connected to C.
 
 These properties define an equivalence relation among the connected points therefore the points, i.e. pixels, composing each layer are divided into equivalence classes by means of this relation.
-
+and 
 This also means that these pixels are divided into subsests mutually disconnected.
 
 Consider the following simple PCB. Pixels made of copper are green.
@@ -47,5 +47,18 @@ Then the center of the node is computed so the list of coordinates of the center
 
 ## Top and bottom connection
 
-Once the top and bottom nets are recognized and the list of hole centers is available, then it is possible to build 
+Once the top and bottom nets are recognized and the list of hole centers is available, then it is possible to connect the nets of both layers by means of the metallized holes. The algorithm must take into account the fact that a single global net may be composed of many unconnected nets on both layers.
 
+In this case, for instance, the top layer to the left has 8 independent nets numbered from 0.1 to 0.8 and the bottom layer to the right has four independent nets numbered from 1.1 to 1.4.
+
+![](./doc/net2layers.png)
+
+The final step of the algorithm recognizes which holes connect which nets of each layer thus recognizing that a single net is actually composed by 12 independent nets on each layers.
+
+## HTML generation
+
+Once the connection is completely determined, a folder is created where a number of copies of both the layers (top and bottom)are generated with only one net highligted in white and an HTML file is generated that refers to these picture so as to create a simple GUI like the following
+
+![](./doc/htmlgui.png)
+
+There is a drop down menu top left from which each signle global net can be selected and the corresponding net is correspondingly highlighted. 
