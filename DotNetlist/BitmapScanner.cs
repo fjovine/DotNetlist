@@ -15,7 +15,7 @@ namespace DotNetlist
     /// <summary>
     /// This class implements the algorithm of scanning the passed bitmap.
     /// It starts from the topmost <see cref="Scanline"/> and builds all the segments, connecting them to each net as soon as a relation of being touched
-    /// by other segments is found
+    /// by other segments is found.
     /// </summary>
     public class BitmapScanner
     {
@@ -83,7 +83,7 @@ namespace DotNetlist
 
         /// <summary>
         /// Prepares the net list, i.e. computes them, compacts the, i.e. reduces the net identifiers to consecutive
-        /// numbers
+        /// numbers.
         /// </summary>
         public void PrepareAll()
         {
@@ -188,7 +188,7 @@ namespace DotNetlist
         /// <summary>
         /// Computes the number of nets found.
         /// </summary>
-        /// <returns>Returns the number of nets found</returns>
+        /// <returns>Returns the number of nets found.</returns>
         public int GetNetCount()
         {
             return this.netlists.Keys.Count;
@@ -218,7 +218,7 @@ namespace DotNetlist
 
         /// <summary>
         /// After the net identifiers have been computed, fills the dictionary <see cref="netlists"/> that map every net identifier to the
-        /// list of segments composing the net
+        /// list of segments composing the net.
         /// </summary>
         public void MapNetlists()
         {

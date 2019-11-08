@@ -40,7 +40,6 @@ namespace DotNetlist
         /// <summary>
         /// Maps the global net to the local nets of each layer.
         /// </summary>
-        /// <returns></returns>
         private Dictionary<int, List<LayerNet>> net2connectedLayerNets = new Dictionary<int, List<LayerNet>>();
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace DotNetlist
         /// <summary>
         /// Computes the enumeration of defined local nets.
         /// </summary>
-        /// <returns>The enumeration of defined local nets</returns>
+        /// <returns>The enumeration of defined local nets.</returns>
         public IEnumerable<int> GetNets()
         {
             return this.net2connectedLayerNets.Keys;

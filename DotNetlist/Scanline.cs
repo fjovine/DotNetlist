@@ -15,7 +15,7 @@ namespace DotNetlist
     /// Describes the segments composing a scan line.
     /// While scanning a scan line, a number of segments are generated that are sequentially stored in
     /// a segment list.
-    /// So the scan line holds the index of the first
+    /// So the scan line holds the index of the first.
     /// </summary>
     public class Scanline
     {

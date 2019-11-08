@@ -163,7 +163,7 @@ namespace DotNetlistUnitTest
             Assert.IsTrue(dut.TryGetNetAt(5,4, out netId));
             Assert.AreEqual(4, netId);
 
-            Assert.IsFalse(dut.TryGetNetAt(3,4, out netId));
+            Assert.IsTrue(dut.TryGetNetAt(3,4, out netId));
         }
 
         private bool IsSingleNetlist(BitmapScanner dut) 

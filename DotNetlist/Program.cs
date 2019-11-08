@@ -20,7 +20,7 @@ namespace DotNetlist
     public class Program
     {
         /// <summary>
-        /// Entry point of the <code>DotNetlist</code> application.
+        /// Entry point of the application.
         /// It is a console application accepting the nameS of the PNG bitmap to be
         /// processed as parameters.
         /// The first PNG is the top layer, the second one is the drill layer while the third is the bottom layer.
@@ -34,13 +34,70 @@ namespace DotNetlist
             {
                 ProcessSingleLayer(args[0]);
             }
-            else if (args.Length == 3)
+            else if (args.Length >= 3)
             {
-                ProcessDoubleLayerWithDrill(args[0], args[1], args[2], true, true);
+                string name = string.Empty;
+                bool drills = false;
+                bool mirror = false;
+                if (args.Length >= 4)
+                {
+                    if (args[3].ToLowerInvariant().StartsWith("-name:"))
+                    {
+                        name = args[3].Substring("-name:".Length);
+                    }
+                    else
+                    {
+                        Error();
+                    }
+
+                    if (args.Length >= 5)
+                    {
+                        var fourthParameter = args[4].ToLowerInvariant();
+                        if (fourthParameter == "-drills")
+                        {
+                            drills = true;
+                        }
+                        else
+                        {
+                            Error();
+                        }
+
+                        if (args.Length != 5)
+                        {
+                            if (args.Length >= 6)
+                            {
+                                var fifthParameter = args[5].ToLowerInvariant();
+                                if (fifthParameter == "-mirror")
+                                {
+                                    mirror = true;
+                                }
+                                else
+                                {
+                                    Error();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = Path.GetFileNameWithoutExtension(args[0]);
+
+                    Console.WriteLine($"Warning no name specified. Data will be stored in ${name}");
+                }
+
+                ProcessDoubleLayerWithDrill(args[0], args[1], args[2], name, drills, mirror);
             }
             else
             {
-                Console.WriteLine("Syntax DotNetlist <topLayer> [<drillLayer> <bottomLayer>] ");
+                Error();
+            }
+
+            void Error()
+            {
+                Console.WriteLine("Syntax DotNetlist <topLayer> [[<drillLayer> <bottomLayer>] [[-Name:<name>] [[-drills] [[-mirror]]]]] ");
+                Environment.Exit(-1);
             }
         }
 
@@ -87,9 +144,10 @@ namespace DotNetlist
         /// <param name="topLayerFilename">Filename of the PNG file containing the top copper layer.</param>
         /// <param name="drillLayerFilename">Filename of the PNG file containing the drill layer.</param>
         /// <param name="bottomLayerFilename">Filename of the PNG file containing the bottom copper layer.</param>
+        /// <param name="path">name of the project output. This is the name of the folder where bitmaps will be stored and the html will be path.HTML.</param>
         /// <param name="doHoles">True if holes should be drawn on copper layers.</param>
         /// <param name="doMirror">True if the bottom layer should be mirrored in the output file produced.</param>
-        public static void ProcessDoubleLayerWithDrill(string topLayerFilename, string drillLayerFilename, string bottomLayerFilename, bool doHoles, bool doMirror)
+        public static void ProcessDoubleLayerWithDrill(string topLayerFilename, string drillLayerFilename, string bottomLayerFilename, string path, bool doHoles, bool doMirror)
         {
             if (!File.Exists(topLayerFilename))
             {
@@ -121,7 +179,6 @@ namespace DotNetlist
             DrillConnector connector = new DrillConnector(top, bottom, drillScanner);
             connector.ComputeGlobalNet();
 
-            var path = Path.GetFileNameWithoutExtension(topLayerFilename);
             Directory.CreateDirectory(path);
 
             if (doHoles)

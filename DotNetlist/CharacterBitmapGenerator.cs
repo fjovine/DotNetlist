@@ -18,7 +18,7 @@ namespace DotNetlist
     /// XX  XX X
     ///  XXXX  X
     ///    XX
-    ///    X
+    ///    X.
     /// </summary>
     public class CharacterBitmapGenerator : AbstractBitmapGenerator
     {

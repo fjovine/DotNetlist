@@ -62,7 +62,7 @@ namespace DotNetlist
         /// </summary>
         /// <param name="x">Abscissa of the pixel to set.</param>
         /// <param name="y">Ordinate of the pixel to set.</param>
-        /// <param name="intensity">Intensity of the pixel. If > 10 the pixel will be white</param>
+        /// <param name="intensity">Intensity of the pixel. If > 10 the pixel will be white.</param>
         public override void SetPixel(int x, int y, int intensity)
         {
             this.bitmap.SetPixel(x, y, intensity > 10 ? Color.White : Color.DarkGray);

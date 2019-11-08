@@ -13,7 +13,7 @@ namespace DotNetlist
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
-    /// Service class that implement the <see cref="IComparer"/> interface for <see cref="Scanline"/>.
+    /// Service class that implement the IComparer interface for <see cref="Scanline"/>.
     /// </summary>
     public class ScanlineComparer : IComparer<Scanline>
     {

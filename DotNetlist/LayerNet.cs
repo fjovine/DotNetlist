@@ -54,7 +54,6 @@ namespace DotNetlist
         /// <summary>
         /// Gets the local net identifier.
         /// </summary>
-        /// <value></value>
         public int NetId
         {
             get;
