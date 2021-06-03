@@ -61,7 +61,7 @@ namespace DotNetlist
         }
 
         /// <summary>
-        /// Gets the list of segments contained in this bitmap.
+        /// Gets the list of segments scanned in this bitmap.
         /// </summary>
         public List<Segment> Segments
         {
@@ -72,7 +72,7 @@ namespace DotNetlist
         }
 
         /// <summary>
-        /// Gets the list of segments belonging to the passed bitmap.
+        /// Gets the list of segments belonging to the passed net.
         /// </summary>
         /// <param name="netId">Identifier of the required net.</param>
         /// <returns>The list of segments belonging to the passed net.</returns>
@@ -167,6 +167,7 @@ namespace DotNetlist
                         }
 
                         var touchingSegments = previousScanline.GetTouchingSegments(this.segments, segment);
+                        Console.WriteLine($"Touching segments count {touchingSegments.Count}");
                         bool isFirst = true;
                         foreach (var touchingSegment in touchingSegments)
                         {
@@ -245,6 +246,7 @@ namespace DotNetlist
         /// <returns>True if the passed point lies inside a net, i.e. copper.</returns>
         public bool TryGetNetAt(float x, float y, out int netId)
         {
+            Console.WriteLine($"\nTryGetNetAt {x},{y}");
             var reference = new Scanline()
             {
                 Y = (int)y,
@@ -259,11 +261,13 @@ namespace DotNetlist
 
             // A scanline exists at the passed ordinate
             Scanline found = this.scanlines[index];
-            for (int i = 0; i <= found.Length; i++)
+            for (int i = 0; i < found.Length; i++)
             {
                 Segment segment = this.segments[found.InitialIndex + i];
+                Console.WriteLine($"{segment}");
                 if (segment.ContainsAbscissa(x))
                 {
+                    Console.WriteLine("Qui");
                     netId = segment.NetList;
                     return true;
                 }

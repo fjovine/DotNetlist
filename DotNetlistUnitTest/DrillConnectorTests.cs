@@ -14,7 +14,7 @@ namespace DotNetlistUnitTest
         private IBitmapAccessor drill;
 
         [TestMethod]
-        public void ComputeGlobalNet_WordksWell_Case1()
+        public void ComputeGlobalNet_WorksWell_Case1()
         {
             this.top = new MockupBitmapAccessor (
                 new string[] {
@@ -59,7 +59,7 @@ namespace DotNetlistUnitTest
         }
 
         [TestMethod]
-        public void ComputeGlobalNet_WordksWell_Case2()
+        public void ComputeGlobalNet_WorksWell_Case2()
         {
             this.top = new MockupBitmapAccessor (
                 new string[] {
@@ -101,6 +101,7 @@ namespace DotNetlistUnitTest
                 });
             
             CheckConnection(new string[] {"0:1,1:1", "0:2,1:2"});
+            Assert.IsTrue(false);
         }
 
         private void CheckConnection(string[] expected)

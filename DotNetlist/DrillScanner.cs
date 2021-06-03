@@ -14,8 +14,8 @@ namespace DotNetlist
 
     /// <summary>
     /// This class recognizes the holes from a <see cref="BitmapScanner"/> object passed.
-    /// When a drill bitmap is scanned, it results in as nets that extend to each hole.
-    /// This class scans each net, checks if it is a hole (i.e.static if it can be inscribed
+    /// When a drill bitmap is scanned, it results as nets that extend each hole.
+    /// This class scans each net, checks if it is a hole (i.e. if it can be inscribed
     /// in a square) and generates a list of coordinates for each hole.
     /// </summary>
     public class DrillScanner

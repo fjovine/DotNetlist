@@ -134,6 +134,33 @@ namespace DotNetlistUnitTest
         }
 
         [TestMethod]
+        public void MapNetlists_WorksWell()
+        {
+            IBitmapAccessor accessor = new MockupBitmapAccessor (
+                new string[] {
+                //   012345678
+                    "X        X",
+                    "X  X  X  X",
+                    "X  X  X  X",
+                    "XXXX  XXXX",
+                    "",
+                });
+            BitmapScanner dut = new BitmapScanner(accessor);
+            dut.Scan();
+            dut.ComputeNetlists();
+            dut.CompactNets();
+            dut.MapNetlists();
+
+            for (int netId = 1; netId<=dut.GetNetCount(); netId++) {
+                Console.WriteLine($"NetId : {netId}");
+                foreach (var segment in dut.GetSegmentsOfNet(netId)) {
+                    Console.WriteLine($"    {segment}");
+                }
+            }
+
+        }
+
+        [TestMethod]
         public void TryGetNetAt_WorksWell_WithProperInnput()
         {
             IBitmapAccessor accessor = new MockupBitmapAccessor (
@@ -163,7 +190,7 @@ namespace DotNetlistUnitTest
             Assert.IsTrue(dut.TryGetNetAt(5,4, out netId));
             Assert.AreEqual(4, netId);
 
-            Assert.IsTrue(dut.TryGetNetAt(3,4, out netId));
+            Assert.IsFalse(dut.TryGetNetAt(3,4, out netId));
         }
 
         private bool IsSingleNetlist(BitmapScanner dut) 

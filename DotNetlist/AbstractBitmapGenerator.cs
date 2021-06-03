@@ -46,7 +46,8 @@ namespace DotNetlist
         }
 
         /// <summary>
-        /// Draws the horizontal passed horizontal segment.
+        /// Draws the passed instance of segment.
+        /// A <see cref="Segment"> is a horizontal segment identified during the scan sequence.
         /// </summary>
         /// <param name="segment">Segment to be drawn.</param>
         /// <param name="intensity">The segment is white when intensity is more than 10.</param>

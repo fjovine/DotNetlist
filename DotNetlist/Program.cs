@@ -21,7 +21,7 @@ namespace DotNetlist
     {
         /// <summary>
         /// Entry point of the application.
-        /// It is a console application accepting the nameS of the PNG bitmap to be
+        /// It is a console application accepting the names of the PNG bitmap to be
         /// processed as parameters.
         /// The first PNG is the top layer, the second one is the drill layer while the third is the bottom layer.
         /// It generates a folder containing all the found networks found and an HTML file
