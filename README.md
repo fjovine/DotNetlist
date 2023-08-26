@@ -2,7 +2,7 @@
 ## Rebuild the netlist from a PCB
 
 This projects aims at reverse engineering PCB's (Printed Circuit Boards) given as bitmap of the layers composing it.
-Currently only two copper layers are one drill layer are supported.
+Currently only two copper layers ana one drill layer are supported.
 
 Starting from these aligned layers defined in the PNG format, DotNetlist performs the following operations
 
